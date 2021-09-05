@@ -1,0 +1,158 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xml:lang="zh-CN">
+    <head>
+        <title>Web application on AWS</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <style type="text/css">
+            /*<![CDATA[*/
+            body {
+                background-color: #fff;
+                color: #000;
+                font-size: 0.9em;
+                font-family: sans-serif,helvetica;
+                margin: 0;
+                padding: 0;
+            }
+            :link {
+                color: #c00;
+            }
+            :visited {
+                color: #c00;
+            }
+            a:hover {
+                color: #f50;
+            }
+            h1 {
+                text-align: center;
+                margin: 0;
+                padding: 0.6em 2em 0.4em;
+                background-color: #294172;
+                color: #fff;
+                font-weight: normal;
+                font-size: 1.75em;
+                border-bottom: 2px solid #000;
+            }
+            h1 strong {
+                font-weight: bold;
+                font-size: 1.5em;
+            }
+            h2 {
+                text-align: center;
+                background-color: #3C6EB4;
+                font-size: 1.1em;
+                font-weight: bold;
+                color: #fff;
+                margin: 0;
+                padding: 0.5em;
+                border-bottom: 2px solid #294172;
+            }
+            hr {
+                display: none;
+            }
+            .content {
+                padding: 1em 5em;
+            }
+            .alert {
+                border: 2px solid #000;
+            }
+
+            img {
+                border: 2px solid #fff;
+                padding: 2px;
+                margin: 2px;
+            }
+            a:hover img {
+                border: 2px solid #294172;
+            }
+            .logos {
+                margin: 1em;
+                text-align: center;
+            }
+            /*]]>*/
+        </style>
+    </head>
+
+    <body>
+        <h1>AWS web application demo by wuwantao</h1>
+
+        <div class="content">
+            <p>如果你看到这个网页证明服务运行正常。网页使用Spring boot开发，数据库采用Amazon RDS MySQL.
+                <br>
+            这个网页采用<strong>AWS ELB</strong>进行负载分担，Auto Scaling组有2台EC2服务器。 </p>
+            <br>
+        
+
+            <div class="alert">
+                <h2>录入和读取MySQL数据</h2>
+                <div class="content">
+                    <h3>添加新用户</h3>
+                    <form action="#" th:action="@{/}" th:object="${user}" method="post">
+                        <p>姓名: <input type="text" id="name" name="name" field="*{name}" /></p>
+                        <p>年龄: <input type="number" id="age" name="age" field="*{age}" /></p>
+                        <p>国际: <input type="text" id="country" name="country" field="*{country}" /></p>
+                        <p><input type="submit" value="提交" /> <input type="reset" value="重置" /></p>
+                    </form>
+                    <br>
+
+                    <h3>用户列表</h3>
+                    <table id="sample" >
+                        <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>姓名</th>
+                            <th>年龄</th>
+                            <th>国籍</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="user : ${users}">
+                            <td th:text="${user.id}">id</td>
+                            <td th:text="${user.name}">姓名</td>
+                            <td th:text="${user.age}">年龄</td>
+                            <td th:text="${user.country}">国籍</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <br>
+            <br>
+
+            <div class="alert">
+                <h2>下载S3文件</h2>
+                <div class="content">
+                    <div class="logos">
+                        <a href="https://s3-web-public.s3.ap-northeast-1.amazonaws.com/upload/2020%E5%B9%B4%E4%B8%AD%E5%9B%BD%E4%B8%93%E6%9C%89%E4%BA%91%E8%A1%8C%E4%B8%9A%E5%8F%91%E5%B1%95%E6%B4%9E%E5%AF%9F.pdf">下载存储于S3 Bucket上的文件</a>
+        
+                    </div>
+                    <br>
+                </div>
+            </div>
+            <br>
+            <br>
+
+            <div class="alert">
+                <h2>使用的AWS 服务</h2>
+                <div class="content">
+                    <ul>
+                      <li>Amazon ELB</li>
+                      <li>Amazon Auto Scaling</li>
+                      <li>Amazon EC2</li>
+                      <li>Amazon S3</li>
+                      <li>Amazon RDS</li>
+                      <li>Amazon Certificater Manager</li>
+                    </ul>  
+                </div>
+            </div>
+
+            <div class="logos">
+                <a href="https://aws.amazon.com/"> 
+                    <img
+                        src="https://s3-web-public.s3.ap-northeast-1.amazonaws.com/upload/aws_logo_smile.png" 
+                        alt="S3 Bucket上的图片"
+                        width="300" height="200"/>
+                </a>
+            </div>
+        </div>
+    </body>
+</html>
